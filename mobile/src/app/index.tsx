@@ -2,8 +2,8 @@ import { Text, View } from "react-native";
 
 const Home = () => {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
-      <Text style={{ textAlign: "center" }}>Home</Text>
+    <View className="flex-1 justify-center items-center">
+      <Text className="text-center">Home</Text>
     </View>
   );
 };

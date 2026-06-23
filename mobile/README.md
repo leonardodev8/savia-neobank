@@ -8,6 +8,7 @@ A digital banking (neobank) client for iOS and Android.
 
 - **Framework:** Expo SDK 56 (React Native 0.85, React 19.2), TypeScript (strict)
 - **Navigation:** Expo Router (file-based)
+- **Styling:** NativeWind v4
 
 ## Getting started
 

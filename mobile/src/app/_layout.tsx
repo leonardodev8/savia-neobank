@@ -3,31 +3,53 @@ import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { fontMap } from "@/core/theme/fonts";
+import { queryClient } from "@/core/query/queryClient";
+import { useAuthStore } from "@/store/authStore";
 
-// Keep the splash screen visible until the fonts are ready
+// Keep the splash visible until the fonts and the persisted session are resolved
 void SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
   const [loaded, error] = useFonts(fontMap);
+  const status = useAuthStore((s) => s.status);
+  const hydrate = useAuthStore((s) => s.hydrate);
+
+  // Restore any persisted session once on launch
+  useEffect(() => {
+    void hydrate();
+  }, [hydrate]);
+
+  const fontsReady = loaded || !!error;
+  const authReady = status !== "idle";
 
   useEffect(() => {
-    if (loaded || error) {
+    if (fontsReady && authReady) {
       void SplashScreen.hideAsync();
     }
-  }, [loaded, error]);
+  }, [fontsReady, authReady]);
 
-  if (!loaded && !error) {
+  if (!fontsReady || !authReady) {
     return null;
   }
 
+  const isAuthenticated = status === "authenticated";
+
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{ headerShown: false }}
-      ></Stack.Screen>
-    </Stack>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaProvider>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Protected guard={isAuthenticated}>
+            <Stack.Screen name="index" />
+          </Stack.Protected>
+          <Stack.Protected guard={!isAuthenticated}>
+            <Stack.Screen name="(auth)/login" />
+          </Stack.Protected>
+        </Stack>
+      </SafeAreaProvider>
+    </QueryClientProvider>
   );
 };
 

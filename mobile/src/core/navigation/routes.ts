@@ -5,4 +5,5 @@
 export const Routes = {
   home: "/",
   login: "/login",
+  code: "/code",
 } as const;

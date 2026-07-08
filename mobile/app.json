@@ -34,7 +34,13 @@
       "expo-status-bar",
       "expo-font",
       "expo-splash-screen",
-      "expo-secure-store"
+      "expo-secure-store",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Usamos Face ID para que ingreses a Savia de forma rápida y segura."
+        }
+      ]
     ]
   }
 }

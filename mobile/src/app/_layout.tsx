@@ -46,6 +46,7 @@ const RootLayout = () => {
           </Stack.Protected>
           <Stack.Protected guard={!isAuthenticated}>
             <Stack.Screen name="(auth)/login" />
+            <Stack.Screen name="(auth)/code" />
           </Stack.Protected>
         </Stack>
       </SafeAreaProvider>

@@ -2,13 +2,17 @@ import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { tokens } from "@/core/theme/tokens";
 import { BrandMark } from "../components/BrandMark";
-import { FaceIdIcon } from "../components/icons";
+import { FaceIdIcon, FingerprintIcon } from "../components/icons";
 import { SecureNotice } from "../components/SecureNotice";
 import { UserChip } from "../components/UserChip";
 import { useLoginViewModel } from "../viewmodels/useLoginViewModel";
 
 export const LoginScreen = () => {
   const vm = useLoginViewModel();
+
+  // Show the fingerprint icon on fingerprint devices, face icon otherwise
+  const BiometricIcon =
+    vm.biometric.kind === "fingerprint" ? FingerprintIcon : FaceIdIcon;
 
   return (
     <SafeAreaView className="flex-1 bg-bg" testID="login-screen">
@@ -17,7 +21,7 @@ export const LoginScreen = () => {
         <BrandMark />
       </View>
 
-      {/* Bottom: returning user + biometric entry */}
+      {/* Bottom: user info + biometric login */}
       <View className="items-center px-6 pb-[30px]">
         <UserChip
           initials={vm.user.initials}
@@ -27,15 +31,15 @@ export const LoginScreen = () => {
 
         <Pressable
           onPress={vm.onBiometricPress}
-          disabled={vm.isAuthenticating}
+          disabled={vm.isAuthenticating || !vm.biometric.available}
           accessibilityRole="button"
-          accessibilityLabel="Ingresar con Face ID"
+          accessibilityLabel={vm.biometric.actionText}
           accessibilityState={{
-            disabled: vm.isAuthenticating,
+            disabled: vm.isAuthenticating || !vm.biometric.available,
             busy: vm.isAuthenticating,
           }}
           testID="login-biometric"
-          className="mb-4 h-[86px] w-[86px] items-center justify-center rounded-full bg-primary active:opacity-90"
+          className="mb-4 h-[86px] w-[86px] items-center justify-center rounded-full bg-primary active:opacity-90 disabled:opacity-40"
           style={{
             shadowColor: tokens.color.primary,
             shadowOpacity: 0.5,
@@ -47,15 +51,15 @@ export const LoginScreen = () => {
           {vm.isAuthenticating ? (
             <ActivityIndicator color="#FFFFFF" />
           ) : (
-            <FaceIdIcon size={42} />
+            <BiometricIcon size={42} />
           )}
         </Pressable>
 
         <Text className="font-sans-semibold text-[16px] text-ink">
-          Ingresar con Face ID
+          {vm.biometric.actionText}
         </Text>
         <Text className="mt-[5px] text-[13px] text-muted">
-          Mira tu teléfono para continuar
+          {vm.biometric.hint}
         </Text>
 
         <Pressable

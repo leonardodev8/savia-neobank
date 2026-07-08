@@ -10,6 +10,14 @@ A digital banking (neobank) client for iOS and Android.
 - **Navigation:** Expo Router (file-based)
 - **Styling:** NativeWind v4
 
+## Features
+
+### Login
+
+- **Biometric login** (Face ID/fingerprint/iris) via `expo-local-authentication`, with clear error messages when biometrics are cancelled, locked out, or not set up.
+- **6-digit code fallback**: a dedicated code screen with a custom keypad and animated dots, used when biometrics are unavailable or the user prefers it.
+- **Screenshot protection** on the code screen (`expo-screen-capture`), so the PIN entry can't be captured.
+
 ## Getting started
 
 ### Prerequisites

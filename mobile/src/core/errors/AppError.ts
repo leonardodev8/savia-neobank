@@ -9,6 +9,10 @@ export const ErrorCodes = {
   NotFound: "NOT_FOUND",
   Validation: "VALIDATION",
   Server: "SERVER",
+  // Biometric hardware/enrollment problem (no sensor, no face/fingerprint enrolled, lockout)
+  Biometric: "BIOMETRIC",
+  Cancelled: "CANCELLED",
+  TooManyAttempts: "TOO_MANY_ATTEMPTS",
   Unknown: "UNKNOWN",
 } as const;
 
@@ -20,6 +24,9 @@ type AppErrorArgs = {
   cause?: unknown;
   status?: number;
   i18nKey?: string;
+  // Structured, non-sensitive context for the UI (remaining attempts, retryAtMs).
+  // Never put secrets (codes, tokens) in here
+  meta?: Record<string, unknown>;
 };
 
 export class AppError extends Error {
@@ -27,6 +34,7 @@ export class AppError extends Error {
   override readonly cause?: unknown;
   readonly status?: number;
   readonly i18nKey?: string;
+  readonly meta?: Record<string, unknown>;
 
   constructor(args: AppErrorArgs) {
     super(args.message);
@@ -35,6 +43,7 @@ export class AppError extends Error {
     this.cause = args.cause;
     this.status = args.status;
     this.i18nKey = args.i18nKey;
+    this.meta = args.meta;
   }
 
   static from(err: unknown): AppError {

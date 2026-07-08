@@ -34,6 +34,73 @@ export const FaceIdIcon = ({
   );
 };
 
+export const FingerprintIcon = ({
+  size = 42,
+  color = "#FFFFFF",
+  strokeWidth = 1.7,
+}: IconProps) => {
+  const s = {
+    stroke: color,
+    strokeWidth,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    fill: "none",
+  } as const;
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      <Path {...s} d="M5.5 8.5a8 8 0 0 1 13 0" />
+      <Path {...s} d="M12 6.5a6 6 0 0 1 6 6v1" />
+      <Path {...s} d="M6 12.5a6 6 0 0 1 9.5-4.9" />
+      <Path {...s} d="M9 12a3 3 0 0 1 6 0v2a8 8 0 0 0 .7 3.3" />
+      <Path {...s} d="M12 12v2a8 8 0 0 0 1.4 4.6" />
+      <Path {...s} d="M9 14.5a8 8 0 0 0 1.8 5" />
+      <Path {...s} d="M6.6 16a8 8 0 0 1-.6-3" />
+    </Svg>
+  );
+};
+
+export const BackspaceIcon = ({
+  size = 26,
+  color = "#1C1B19",
+  strokeWidth = 1.7,
+}: IconProps) => {
+  const s = {
+    stroke: color,
+    strokeWidth,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    fill: "none",
+  } as const;
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      <Path
+        {...s}
+        d="M21 5H8.5a2 2 0 0 0-1.5.7l-4.2 5a1 1 0 0 0 0 1.3l4.2 5a2 2 0 0 0 1.5.7H21a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"
+      />
+      <Path {...s} d="M12 9.5l5 5M17 9.5l-5 5" />
+    </Svg>
+  );
+};
+
+export const ChevronLeftIcon = ({
+  size = 24,
+  color = "#1C1B19",
+  strokeWidth = 2,
+}: IconProps) => {
+  const s = {
+    stroke: color,
+    strokeWidth,
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    fill: "none",
+  } as const;
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      <Path {...s} d="M15 6l-6 6 6 6" />
+    </Svg>
+  );
+};
+
 export const LockIcon = ({
   size = 13,
   color = "#9A968E",

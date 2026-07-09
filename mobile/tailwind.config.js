@@ -17,7 +17,7 @@ module.exports = {
         accent: c.accent,
         bg: c.bg,
         surface: c.surface,
-        ink: c.ink,
+        ink: { DEFAULT: c.ink, soft: c.inkSoft },
         secondary: c.secondary,
         muted: c.muted,
         hairline: c.hairline,

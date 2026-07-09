@@ -8,7 +8,7 @@ const initialsOf = (first: string, last: string): string =>
   `${first.charAt(0)}${last.charAt(0)}`.toUpperCase();
 
 const maskAccount = (accountNumber: string): string => {
-  const last4 = accountNumber.slice(-4).padStart(4, "•");
+  const last4 = accountNumber.slice(-4).padStart(4, "*");
   return `**** **** ${last4}`;
 };
 

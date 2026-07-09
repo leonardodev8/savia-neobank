@@ -19,6 +19,8 @@ export const tokens = {
     bg: "#F6F5F2",
     surface: "#FFFFFF",
     ink: "#1C1B19",
+    // Softer ink for tile/chip
+    inkSoft: "#3A3833",
     secondary: "#6B6862",
     muted: "#9A968E",
     hairline: "#ECEAE4",
@@ -41,6 +43,14 @@ export const tokens = {
       income: "#3FCF9E",
       expense: "#F2796B",
     },
+  },
+
+  avatarTone: {
+    green: { bg: "#E4F3EA", ink: "#1F8A50" },
+    teal: { bg: "#E3F1ED", ink: "#1F8A50" },
+    amber: { bg: "#F3ECDF", ink: "#9A7B3F" },
+    blue: { bg: "#E7EEF3", ink: "#3F6B8A" },
+    clay: { bg: "#F1E9E6", ink: "#97604A" },
   },
 
   // Balance card gradient

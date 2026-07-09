@@ -31,8 +31,8 @@ const messageForError = (error: AppError): string => {
     ?.remainingAttempts;
   if (error.code === ErrorCodes.Unauthorized && typeof remaining === "number") {
     return remaining === 1
-      ? "Código incorrecto · te queda 1 intento"
-      : `Código incorrecto · te quedan ${remaining} intentos`;
+      ? "Código incorrecto, te queda 1 intento"
+      : `Código incorrecto, te quedan ${remaining} intentos`;
   }
   return error.message;
 };

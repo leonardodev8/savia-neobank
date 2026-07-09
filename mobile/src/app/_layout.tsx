@@ -42,7 +42,7 @@ const RootLayout = () => {
       <SafeAreaProvider>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Protected guard={isAuthenticated}>
-            <Stack.Screen name="index" />
+            <Stack.Screen name="(tabs)" />
           </Stack.Protected>
           <Stack.Protected guard={!isAuthenticated}>
             <Stack.Screen name="(auth)/login" />

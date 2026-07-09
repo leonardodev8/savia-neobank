@@ -18,6 +18,14 @@ A digital banking (neobank) client for iOS and Android.
 - **6-digit code fallback**: a dedicated code screen with a custom keypad and animated dots, used when biometrics are unavailable or the user prefers it.
 - **Screenshot protection** on the code screen (`expo-screen-capture`), so the PIN entry can't be captured.
 
+### Home
+
+- **Balance card** with a show/hide toggle that masks the amount (`S/ ******`), account alias and masked account number.
+- **Quick actions** (Transferir, Recargar, Pagar, Más) and a **recent movements** list with per-category styling and signed amounts (`+ S/ 3,200.00` / `- S/ 120.00`).
+- **Money as integer cents** end to end: amounts are only formatted at render time through a single `core/money` module (no floats, no ad-hoc formatting).
+- **Loading / error / empty states** handled, with retry on failure.
+- **Tab navigation** with a custom tab bar and a center **Transferir** FAB (Inicio | Movimientos | Transferir | Tarjetas | Perfil).
+
 ## Getting started
 
 ### Prerequisites

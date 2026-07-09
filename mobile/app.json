@@ -24,7 +24,11 @@
       },
       "predictiveBackGestureEnabled": false,
       "package": "com.leonardodev8.savianeobank",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -41,6 +45,13 @@
           "faceIDPermission": "Usamos Face ID para que ingreses a Savia de forma rápida y segura."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "afef3bb9-f15a-455d-bc15-25a1063ea77c"
+      }
+    },
+    "owner": "leonardodev8"
   }
 }

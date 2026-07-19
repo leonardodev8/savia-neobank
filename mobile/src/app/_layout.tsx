@@ -8,6 +8,8 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { fontMap } from "@/core/theme/fonts";
 import { queryClient } from "@/core/query/queryClient";
 import { useAuthStore } from "@/store/authStore";
+import { useAppLock } from "@/shared/hooks/useAppLock";
+import { PrivacyShield } from "@/shared/components/feedback/PrivacyShield";
 
 // Keep the splash visible until the fonts and the persisted session are resolved
 void SplashScreen.preventAutoHideAsync();
@@ -16,6 +18,7 @@ const RootLayout = () => {
   const [loaded, error] = useFonts(fontMap);
   const status = useAuthStore((s) => s.status);
   const hydrate = useAuthStore((s) => s.hydrate);
+  const { isObscured } = useAppLock();
 
   // Restore any persisted session once on launch
   useEffect(() => {
@@ -49,6 +52,7 @@ const RootLayout = () => {
             <Stack.Screen name="(auth)/code" />
           </Stack.Protected>
         </Stack>
+        {isObscured ? <PrivacyShield /> : null}
       </SafeAreaProvider>
     </QueryClientProvider>
   );

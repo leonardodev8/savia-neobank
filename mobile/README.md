@@ -17,6 +17,8 @@ A digital banking (neobank) client for iOS and Android.
 - **Biometric login** (Face ID/fingerprint/iris) via `expo-local-authentication`, with clear error messages when biometrics are cancelled, locked out, or not set up.
 - **6-digit code fallback**: a dedicated code screen with a custom keypad and animated dots, used when biometrics are unavailable or the user prefers it.
 - **Screenshot protection** on the code screen (`expo-screen-capture`), so the PIN entry can't be captured.
+- **Auto-lock**: the session locks when the app stays in background past a configurable timeout (60s default) and on every cold start, reopening always asks for biometrics or the code. The persisted session is kept, only re-authentication is required.
+- **Privacy screen**: a brand overlay covers the UI whenever the app leaves the foreground, so the app switcher never shows balances or movements.
 
 ### Home
 
@@ -55,4 +57,14 @@ npx expo run:android   # or: npx expo run:ios
 ```bash
 npm run typecheck   # tsc --noEmit
 npm run lint        # eslint .
+npm run test        # jest
 ```
+
+## Decisions & tradeoffs
+
+- **No certificate pinning (yet).** Certificate pinning helps protect the app from man-in-the-middle attacks. This is important for banking apps. In Expo, it needs extra native configuration and a new app build. If it is not set up correctly, the app may stop working when the certificate changes. For this MVP, we use TLS and encrypted storage. This is enough for the current mock backend. Certificate pinning can be added later.
+- **Session management is handled in the Zustand store.** Actions like `hydrate`, `signIn`, `signOut`, and `lock` are in the store because they control which screens the user can access.
+- **Authentication rules stay in the domain layer.** For example, code validation and biometric checks are handled by use-cases and repository interfaces.
+- **Sessions are stored only in `expo-secure-store`.** It uses Keychain on iOS and encrypted storage on Android, so tokens stay protected, remain on the current device, and are never saved in `AsyncStorage`.
+- **Auto-lock and privacy screen are more important than staying signed in.** The app asks for biometrics or a code after a restart or long time in the background, and it hides sensitive information in recent apps, but full screenshot blocking on Android will be added later.
+- **Money transfers are not shown as complete before server confirmation** (planned): They first appear as `pending` and only change to completed after the server confirms the transaction.

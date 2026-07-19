@@ -6,15 +6,17 @@ import { create } from "zustand";
 import { secureStore } from "@/core/storage/secureStore";
 import type { Session } from "@/features/auth";
 
-type AuthStatus = "idle" | "authenticated" | "unauthenticated";
+type AuthStatus = "idle" | "authenticated" | "locked" | "unauthenticated";
 
 type AuthState = {
   status: AuthStatus;
   session: Session | null;
-  // Restore a persisted session on launch. Resolves "idle" -> authed/unauthed
+  // Restore a persisted session on launch. Resolves "idle" -> locked/unauthed
   hydrate: () => Promise<void>;
   signIn: (session: Session) => Promise<void>;
   signOut: () => Promise<void>;
+  // Keep the session but require biometrics/code again to see any content
+  lock: () => void;
 };
 
 const SESSION_KEY = "savia.session";
@@ -31,7 +33,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
     try {
       const session = JSON.parse(raw) as Session;
-      set({ status: "authenticated", session });
+      // Never restore straight into the app: a persisted session still
+      // requires biometrics or the code on every launch
+      set({ status: "locked", session });
     } catch {
       // Corrupt payload, drop it and fall back to logged-out
       await secureStore.remove(SESSION_KEY);
@@ -47,5 +51,11 @@ export const useAuthStore = create<AuthState>((set) => ({
   signOut: async () => {
     await secureStore.remove(SESSION_KEY);
     set({ status: "unauthenticated", session: null });
+  },
+
+  lock: () => {
+    set((state) =>
+      state.status === "authenticated" ? { status: "locked" } : state,
+    );
   },
 }));

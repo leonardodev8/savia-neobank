@@ -24,6 +24,8 @@ export const tokens = {
     secondary: "#6B6862",
     muted: "#9A968E",
     hairline: "#ECEAE4",
+    // Slightly darker hairline for outlined pills/chips
+    hairlineStrong: "#E4E1DA",
 
     // Semantic
     income: "#1F9D5B",
@@ -51,6 +53,8 @@ export const tokens = {
     amber: { bg: "#F3ECDF", ink: "#9A7B3F" },
     blue: { bg: "#E7EEF3", ink: "#3F6B8A" },
     clay: { bg: "#F1E9E6", ink: "#97604A" },
+    olive: { bg: "#ECEFEA", ink: "#5E7A45" },
+    gray: { bg: "#EFEDE8", ink: "#6B6862" },
   },
 
   // Balance card gradient

@@ -20,7 +20,7 @@ module.exports = {
         ink: { DEFAULT: c.ink, soft: c.inkSoft },
         secondary: c.secondary,
         muted: c.muted,
-        hairline: c.hairline,
+        hairline: { DEFAULT: c.hairline, strong: c.hairlineStrong },
         income: { DEFAULT: c.income, tint: c.incomeTint },
         expense: { DEFAULT: c.expense, tint: c.expenseTint },
         // Dark-theme palette -> use as "dark:bg-dk-bg", etc.

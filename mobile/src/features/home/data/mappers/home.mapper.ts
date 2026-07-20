@@ -1,18 +1,8 @@
+import { toInitials } from "@/shared/utils/initials";
 import type { Account } from "@/features/home/domain/entities/Account";
 import type { Movement } from "@/features/home/domain/entities/Movement";
 import type { HomeSummary } from "@/features/home/domain/repositories/IHomeRepository";
 import type { AccountDTO, HomeSummaryDTO, MovementDTO } from "../dto/home.dto";
-
-// Spanish particles skipped when deriving initials ("Inversiones del Sur" -> "IS")
-const PARTICLES = new Set(["de", "del", "la", "las", "los", "el", "y"]);
-
-const toInitials = (name: string): string =>
-  name
-    .split(/\s+/)
-    .filter((word) => word.length > 0 && !PARTICLES.has(word.toLowerCase()))
-    .slice(0, 2)
-    .map((word) => (word[0] ?? "").toUpperCase())
-    .join("");
 
 export const toAccount = (dto: AccountDTO): Account => ({
   id: dto.id,

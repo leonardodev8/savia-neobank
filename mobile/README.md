@@ -28,6 +28,15 @@ A digital banking (neobank) client for iOS and Android.
 - **Loading / error / empty states** handled, with retry on failure.
 - **Tab navigation** with a custom tab bar and a center **Transferir** FAB (Inicio | Movimientos | Transferir | Tarjetas | Perfil).
 
+### Transactions
+
+- **Virtualized history** rendered with **FlashList**: ~2,000 movements scroll smoothly, with rows grouped under date headers (`Hoy 19 jul`, `Ayer 18 jul`, `Mié 10 jun`).
+- **Cursor-based pagination**: pages of 50 load on demand as the list reaches the end (infinite scroll with a loading footer), through a `getTransactions` use case whose signature is already server-ready.
+- **Search and filters, fully client-side**: search by merchant or person (case- and accent-insensitive, so `ursula` finds `Úrsula`) combined with filter chips (Todos | Ingresos | Egresos | Este mes). Both are memoized, so typing never refetches.
+- **Performance hygiene**: memoized rows (`React.memo`), stable `renderItem`/`keyExtractor` defined at module scope, and per-type recycling via `getItemType`.
+- **Loading skeleton / empty / error states**: shimmer-style placeholder rows on first load, a "no results" state for empty searches, and an error state with retry.
+- **Layered like every feature**: pure list logic (filtering, grouping, row shaping) lives outside React and is unit-tested on its own; the screen only renders what the view model exposes.
+
 ## Getting started
 
 ### Prerequisites

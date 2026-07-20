@@ -1,5 +1,5 @@
-import { ComingSoon } from "@/shared/components/feedback/ComingSoon";
+import { MovementsScreen } from "@/features/transactions";
 
 export default function MovementsRoute() {
-  return <ComingSoon title="Movimientos" />;
+  return <MovementsScreen />;
 }
